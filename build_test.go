@@ -7,7 +7,7 @@ import (
 	"kkn.fi/application"
 )
 
-func TestNewMeta(t *testing.T) {
+func TestNewBuild(t *testing.T) {
 	type args struct {
 		buildTime string
 		version   string
@@ -16,7 +16,7 @@ func TestNewMeta(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    *application.Meta
+		want    *application.Build
 		wantErr bool
 	}{
 		{
@@ -26,10 +26,10 @@ func TestNewMeta(t *testing.T) {
 				version:   "v0.0.8",
 				revision:  "87833c220402a5838a73dc347433700b68c6333e",
 			},
-			want: &application.Meta{
-				BuildTime: "2022-08-28T16:13:19+0000",
-				Version:   "v0.0.8",
-				Revision:  "87833c220402a5838a73dc347433700b68c6333e",
+			want: &application.Build{
+				Time:     "2022-08-28T16:13:19+0000",
+				Version:  "v0.0.8",
+				Revision: "87833c220402a5838a73dc347433700b68c6333e",
 			},
 			wantErr: false,
 		},
@@ -68,7 +68,7 @@ func TestNewMeta(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got, err := application.NewMeta(tt.args.buildTime, tt.args.version, tt.args.revision)
+			got, err := application.NewBuild(tt.args.buildTime, tt.args.version, tt.args.revision)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("NewMeta() error = %v, wantErr %v", err, tt.wantErr)
 				return
