@@ -1,12 +1,12 @@
 //go:build !integration
 
-package application_test
+package build_test
 
 import (
 	"reflect"
 	"testing"
 
-	"kkn.fi/application"
+	"kkn.fi/application/build"
 )
 
 func TestNewBuild(t *testing.T) {
@@ -19,7 +19,7 @@ func TestNewBuild(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    *application.Build
+		want    *build.Build
 		wantErr bool
 	}{
 		{
@@ -30,7 +30,7 @@ func TestNewBuild(t *testing.T) {
 				revision:  "87833c220402a5838a73dc347433700b68c6333e",
 				goVersion: "1.19",
 			},
-			want: &application.Build{
+			want: &build.Build{
 				Time:      "2022-08-28T16:13:19+0000",
 				Version:   "v0.0.8",
 				Revision:  "87833c220402a5838a73dc347433700b68c6333e",
@@ -87,7 +87,7 @@ func TestNewBuild(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got, err := application.NewBuild(tt.args.buildTime, tt.args.version, tt.args.revision, tt.args.goVersion)
+			got, err := build.NewBuild(tt.args.buildTime, tt.args.version, tt.args.revision, tt.args.goVersion)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("application.NewBuild() error = %v, wantErr %v", err, tt.wantErr)
 				return
