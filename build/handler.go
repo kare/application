@@ -7,22 +7,22 @@ import (
 )
 
 // NewHandler creates a Version hander with Go version set to current runtime.
-func NewHandler(version, buildTime, revision string) http.Handler {
+func NewHandler(b *Build) http.Handler {
 	goVersion := runtime.Version()
-	return Handler(version, buildTime, revision, goVersion)
+	return Handler(b.Version, b.Time, b.Revision, goVersion)
 }
 
 // Handler handler returns the version, build time, and Go version as a JSON message.
 func Handler(version, buildTime, revision, goVersion string) http.Handler {
 	type response struct {
 		Version   string `json:"version"`
-		BuildTime string `json:"build_time"`
+		Time      string `json:"build_time"`
 		Revision  string `json:"revision"`
 		GoVersion string `json:"go_version"`
 	}
 	res := &response{
 		Version:   version,
-		BuildTime: buildTime,
+		Time:      buildTime,
 		Revision:  revision,
 		GoVersion: goVersion,
 	}
